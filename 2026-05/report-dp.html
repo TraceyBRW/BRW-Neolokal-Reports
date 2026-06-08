@@ -1,1 +1,684 @@
-file:///Users/tracey/Desktop/Neolokal%20–%20Daily%20Pulse%20Management%20Report%20May%202026.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neolokal – Daily Pulse Management Report May 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{--aqua:#00AEBC;--coral:#FF7376;--charcoal:#434443;--yellow:#F1EB6B;--muted:#A2999E;--bg:#F4F3F1;--white:#FFFFFF;--green:#52B788;--purple:#9575CD;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--charcoal);font-size:13.5px;line-height:1.55;}
+.lang-bar{position:fixed;top:18px;right:24px;z-index:200;display:flex;border-radius:30px;overflow:hidden;border:2px solid var(--aqua);background:var(--white);box-shadow:0 4px 16px rgba(0,174,188,0.18);}
+.lang-bar button{border:none;padding:7px 18px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--aqua);transition:all .2s;letter-spacing:.06em;}
+.lang-bar button.active{background:var(--aqua);color:#fff;}
+.tr{display:none;}
+body.lang-tr .en{display:none;}
+body.lang-tr .tr{display:block;}
+body.lang-tr span.tr{display:inline;}
+body.lang-tr span.en{display:none;}
+span.tr{display:none;}
+.header{background:var(--charcoal);padding:38px 52px 32px;display:flex;align-items:flex-end;justify-content:space-between;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50px;right:-30px;width:220px;height:220px;border-radius:50%;background:var(--aqua);opacity:.10;}
+.header::after{content:'';position:absolute;bottom:-70px;left:32%;width:180px;height:180px;border-radius:50%;background:var(--coral);opacity:.09;}
+.h-left{position:relative;z-index:1;}
+.h-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--aqua);margin-bottom:7px;}
+.h-title{font-family:'DM Serif Display',serif;font-size:34px;color:#fff;line-height:1.1;}
+.h-title em{color:var(--coral);font-style:normal;}
+.h-sub{font-size:12px;color:var(--muted);margin-top:8px;}
+.h-right{position:relative;z-index:1;text-align:right;}
+.h-stat{font-family:'DM Serif Display',serif;font-size:42px;color:var(--yellow);line-height:1;}
+.h-stat-label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
+.page{max-width:1260px;margin:0 auto;padding:24px 32px 48px;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.full{grid-column:1/3;}
+.left{grid-column:1/2;}
+.right{grid-column:2/3;}
+.card{background:var(--white);border-radius:16px;padding:22px 24px;box-shadow:0 2px 14px rgba(67,68,67,.06);}
+.card-title{font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.card-title::before{content:'';display:inline-block;width:4px;height:14px;border-radius:2px;background:var(--aqua);flex-shrink:0;}
+.card-title.coral::before{background:var(--coral);}
+.card-title.green::before{background:var(--green);}
+.card-title.yellow::before{background:#c8b800;}
+.card-title.purple::before{background:var(--purple);}
+.card-title.red::before{background:#E53935;}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.tile{text-align:center;padding:16px 10px 14px;border-radius:12px;}
+.tile-icon{font-size:20px;margin-bottom:3px;}
+.tile-num{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;}
+.tile-denom{font-size:13px;color:var(--muted);}
+.tile-label{font-size:10.5px;font-weight:600;opacity:.7;letter-spacing:.04em;margin-top:5px;}
+.tile-bar{height:4px;border-radius:2px;background:#E8E8E8;margin-top:8px;overflow:hidden;}
+.tile-fill{height:100%;border-radius:2px;}
+.t-phys{background:#EAF9FA;}.t-phys .tile-fill{background:var(--aqua);}
+.t-ment{background:#FFF0F0;}.t-ment .tile-fill{background:var(--coral);}
+.t-emot{background:#FFFDE6;}.t-emot .tile-fill{background:#c8b800;}
+.t-recv{background:#EDFAF3;}.t-recv .tile-fill{background:var(--green);}
+.t-work{background:#F3F0FB;}.t-work .tile-fill{background:var(--purple);}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;}
+.compare-table th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 0 10px;border-bottom:1px solid #EBEBEB;}
+.compare-table th:not(:first-child){text-align:center;}
+.compare-table td{padding:9px 0;border-bottom:1px solid #F5F4F2;vertical-align:middle;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table td:not(:first-child){text-align:center;}
+.compare-table tr.ref-row td{background:#F9F8F7;font-size:11.5px;color:var(--muted);}
+.dim-name{font-weight:600;color:var(--charcoal);}
+.score-val{font-family:'DM Serif Display',serif;font-size:17px;}
+.score-sm{font-family:'DM Serif Display',serif;font-size:13px;color:var(--muted);}
+.change-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.change-down{background:rgba(255,115,118,.12);color:#C62828;}
+.change-up{background:rgba(82,183,136,.12);color:#2E7D32;}
+.mini-bar-wrap{display:flex;align-items:center;gap:6px;justify-content:center;}
+.mini-bar-bg{width:60px;height:5px;border-radius:3px;background:#EBEBEB;overflow:hidden;}
+.mini-bar-fill{height:100%;border-radius:3px;}
+.part-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.part-block{border-radius:12px;padding:16px;text-align:center;}
+.part-foh{background:linear-gradient(135deg,rgba(0,174,188,.08),rgba(0,174,188,.04));border:1.5px solid rgba(0,174,188,.25);}
+.part-boh{background:linear-gradient(135deg,rgba(82,183,136,.08),rgba(82,183,136,.03));border:1.5px solid rgba(82,183,136,.35);}
+.part-n{font-family:'DM Serif Display',serif;font-size:38px;}
+.part-foh .part-n{color:var(--aqua);}
+.part-boh .part-n{color:var(--green);}
+.part-pct{font-size:12px;font-weight:600;opacity:.6;margin-top:2px;}
+.part-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;}
+.part-change{font-size:11px;margin-top:6px;font-weight:600;padding:2px 8px;border-radius:10px;display:inline-block;}
+.change-neg{background:rgba(255,115,118,.12);color:#C62828;}
+.change-pos{background:rgba(82,183,136,.12);color:#2E7D32;}
+.part-compare{width:100%;border-collapse:collapse;margin-top:16px;font-size:12.5px;}
+.part-compare th{font-size:9.5px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;border-bottom:1px solid #EBEBEB;text-align:center;}
+.part-compare th:first-child{text-align:left;}
+.part-compare td{padding:8px 0;border-bottom:1px solid #F5F4F2;text-align:center;vertical-align:middle;}
+.part-compare tr:last-child td{border-bottom:none;}
+.part-compare td:first-child{text-align:left;font-weight:600;}
+.alert-gap{display:flex;gap:12px;align-items:flex-start;background:#FFF8E7;border-left:4px solid var(--yellow);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12.5px;line-height:1.6;margin-top:14px;}
+.alert-red-box{display:flex;gap:12px;align-items:flex-start;background:#FFF5F5;border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12.5px;line-height:1.6;margin-top:14px;}
+.alert-green{display:flex;gap:12px;align-items:flex-start;background:#EDFAF3;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12.5px;line-height:1.6;margin-top:10px;}
+.alert-aqua{display:flex;gap:12px;align-items:flex-start;background:rgba(0,174,188,.06);border-left:4px solid var(--aqua);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12.5px;line-height:1.6;margin-top:14px;}
+.low-prof-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.low-prof-table th{font-size:9.5px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;border-bottom:1px solid #EBEBEB;text-align:center;}
+.low-prof-table th:first-child{text-align:left;}
+.low-prof-table td{padding:8px 0;border-bottom:1px solid #F5F4F2;text-align:center;}
+.low-prof-table tr:last-child td{border-bottom:none;}
+.low-prof-table td:first-child{text-align:left;font-weight:600;}
+.flag-high{color:#C62828;font-weight:700;}
+.flag-low{color:var(--green);font-weight:600;}
+.flag-zero{color:var(--muted);font-style:italic;}
+.week-boxes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px;font-size:12px;}
+.week-box{border-radius:10px;padding:12px 10px;border-left:3px solid;}
+.wk-good{background:#F7FEFF;border-color:var(--aqua);}
+.wk-mild{background:#FFFDE6;border-color:#c8b800;}
+.wk-warn{background:#FFF5F0;border-color:#FF9800;}
+.wk-crit{background:#FFF5F5;border-color:var(--coral);}
+.wk-rebo{background:#EDFAF3;border-color:var(--green);}
+.wk-label{font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.wk-good .wk-label{color:var(--aqua);}
+.wk-mild .wk-label{color:#a09000;}
+.wk-warn .wk-label{color:#E65100;}
+.wk-crit .wk-label{color:var(--coral);}
+.wk-rebo .wk-label{color:var(--green);}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.q-item{background:var(--bg);border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;}
+.q-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--aqua);line-height:1;flex-shrink:0;}
+canvas{max-height:210px;}
+.chart-sm{max-height:175px !important;}
+.chart-md{max-height:190px !important;}
+.footer{background:var(--charcoal);text-align:center;padding:14px;font-size:11px;color:var(--muted);letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <button class="active" onclick="setLang('en')">EN</button>
+  <button onclick="setLang('tr')">TR</button>
+</div>
+
+<div class="header">
+  <div class="h-left">
+    <div class="h-eyebrow">The BreakRoom Wellness · Daily Pulse · Management Report</div>
+    <div class="h-title"><em>Neolokal</em> — <span class="en">Monthly Wellness Report</span><span class="tr">Aylık Wellness Raporu</span></div>
+    <div class="h-sub">
+      <span class="en">Reporting Period: Apr 30 – May 30, 2026 &nbsp;·&nbsp; 5 active weeks &nbsp;·&nbsp; 5 wellness dimensions &nbsp;·&nbsp; Confidential</span>
+      <span class="tr">Raporlama Dönemi: 30 Nis – 30 May 2026 &nbsp;·&nbsp; 5 aktif hafta &nbsp;·&nbsp; 5 wellness boyutu &nbsp;·&nbsp; Gizli</span>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="h-stat">175</div>
+    <div class="h-stat-label"><span class="en">Total Responses</span><span class="tr">Toplam Yanıt</span></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PARTICIPATION -->
+  <div class="card full">
+    <div class="card-title coral">
+      <span class="en">Participation Overview — Month-on-Month Comparison</span>
+      <span class="tr">Katılım Genel Bakışı — Aylık Karşılaştırma</span>
+    </div>
+    <div class="part-grid">
+      <div class="part-block part-foh">
+        <div class="part-n">63</div>
+        <div class="part-pct"><span class="en">36.0% of responses this month</span><span class="tr">bu ay yanıtların %36.0'ı</span></div>
+        <div class="part-label">Front of House (FOH)</div>
+        <div class="part-change change-neg">↓ <span class="en">was 82 (43.4%) last month</span><span class="tr">geçen ay 82 (%43.4) idi</span></div>
+      </div>
+      <div class="part-block part-boh">
+        <div class="part-n">112</div>
+        <div class="part-pct"><span class="en">64.0% of responses this month</span><span class="tr">bu ay yanıtların %64.0'ı</span></div>
+        <div class="part-label">Back of House (BOH)</div>
+        <div class="part-change change-pos">↑ <span class="en">was 107 (56.6%) last month</span><span class="tr">geçen ay 107 (%56.6) idi</span></div>
+      </div>
+    </div>
+    <table class="part-compare">
+      <tr>
+        <th><span class="en">Area</span><span class="tr">Alan</span></th>
+        <th><span class="en">March</span><span class="tr">Mart</span></th>
+        <th><span class="en">April</span><span class="tr">Nisan</span></th>
+        <th><span class="en">May</span><span class="tr">Mayıs</span></th>
+        <th><span class="en">3-Month Trend</span><span class="tr">3 Aylık Trend</span></th>
+      </tr>
+      <tr>
+        <td>FOH</td>
+        <td>123 (71.5%)</td>
+        <td>82 (43.4%)</td>
+        <td>63 (36.0%)</td>
+        <td><span class="change-pill change-down">↓ 3 months consecutive</span></td>
+      </tr>
+      <tr>
+        <td>BOH</td>
+        <td>49 (28.5%)</td>
+        <td>107 (56.6%)</td>
+        <td>112 (64.0%)</td>
+        <td><span class="change-pill change-up">↑ 3 months consecutive</span></td>
+      </tr>
+    </table>
+    <div class="alert-red-box">
+      ⚠️
+      <div>
+        <strong><span class="en">FOH participation has declined every month since the programme began — from 123 to 82 to 63.</span><span class="tr">FOH katılımı program başladığından beri her ay düştü — 123'ten 82'ye, 82'den 63'e.</span></strong>
+        <span class="en"> This is a consistent downward trend that requires direct attention from leadership. BOH participation continues to grow, which is positive — but FOH voices are being heard less each month.</span>
+        <span class="tr"> Bu, liderliğin doğrudan ilgisini gerektiren tutarlı bir düşüş trenddir. BOH katılımı büyümeye devam ediyor, bu olumlu — ancak FOH sesleri her ay daha az duyuluyor.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERALL AVERAGES -->
+  <div class="card full">
+    <div class="card-title">
+      <span class="en">Overall Monthly Averages — All Staff (n=175) · Scale: 1 Low → 5 High</span>
+      <span class="tr">Genel Aylık Ortalamalar — Tüm Personel (n=175) · Ölçek: 1 Düşük → 5 Yüksek</span>
+    </div>
+    <div class="tiles">
+      <div class="tile t-phys">
+        <div class="tile-icon">💪</div>
+        <div class="tile-num">2.2<span class="tile-denom">/5</span></div>
+        <div class="tile-bar"><div class="tile-fill" style="width:43%"></div></div>
+        <div class="tile-label"><span class="en">Physical</span><span class="tr">Fiziksel</span></div>
+      </div>
+      <div class="tile t-ment">
+        <div class="tile-icon">🧠</div>
+        <div class="tile-num">2.2<span class="tile-denom">/5</span></div>
+        <div class="tile-bar"><div class="tile-fill" style="width:43%"></div></div>
+        <div class="tile-label"><span class="en">Mental</span><span class="tr">Zihinsel</span></div>
+      </div>
+      <div class="tile t-emot">
+        <div class="tile-icon">💛</div>
+        <div class="tile-num">2.1<span class="tile-denom">/5</span></div>
+        <div class="tile-bar"><div class="tile-fill" style="width:41%"></div></div>
+        <div class="tile-label"><span class="en">Emotional</span><span class="tr">Duygusal</span></div>
+      </div>
+      <div class="tile t-recv">
+        <div class="tile-icon">🌙</div>
+        <div class="tile-num">2.2<span class="tile-denom">/5</span></div>
+        <div class="tile-bar"><div class="tile-fill" style="width:44%"></div></div>
+        <div class="tile-label"><span class="en">Recovery</span><span class="tr">Toparlanma</span></div>
+      </div>
+      <div class="tile t-work">
+        <div class="tile-icon">🏠</div>
+        <div class="tile-num">2.3<span class="tile-denom">/5</span></div>
+        <div class="tile-bar"><div class="tile-fill" style="width:46%"></div></div>
+        <div class="tile-label"><span class="en">Work Env.</span><span class="tr">Çalışma Ort.</span></div>
+      </div>
+    </div>
+    <div class="alert-red-box" style="margin-top:14px;">
+      ⚠️
+      <div>
+        <strong><span class="en">Important context: these overall averages are significantly shaped by BOH responses this month.</span><span class="tr">Önemli bağlam: bu genel ortalamalar bu ay büyük ölçüde BOH yanıtları tarafından şekillendiriliyor.</span></strong>
+        <span class="en"> FOH and BOH are telling two very different stories this month. The FOH and BOH sections below provide the full picture. These headline scores should be read alongside those breakdowns, not in isolation.</span>
+        <span class="tr"> FOH ve BOH bu ay iki çok farklı hikaye anlatıyor. Aşağıdaki FOH ve BOH bölümleri tam resmi sunuyor. Bu başlık puanları, tek başına değil, o dökümanlarla birlikte okunmalıdır.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH-ON-MONTH COMPARISON -->
+  <div class="card full">
+    <div class="card-title red">
+      <span class="en">Month-on-Month Score Comparison — April vs. May (with 3-month reference)</span>
+      <span class="tr">Aylık Puan Karşılaştırması — Nisan ile Mayıs (3 aylık referansla)</span>
+    </div>
+    <table class="compare-table">
+      <tr>
+        <th><span class="en">Dimension</span><span class="tr">Boyut</span></th>
+        <th><span class="en">April avg.</span><span class="tr">Nisan ort.</span></th>
+        <th><span class="en">May avg.</span><span class="tr">Mayıs ort.</span></th>
+        <th><span class="en">Change</span><span class="tr">Değişim</span></th>
+        <th><span class="en">Visual (May)</span><span class="tr">Görsel (May)</span></th>
+        <th><span class="en">March ref.</span><span class="tr">Mart ref.</span></th>
+      </tr>
+      <tr>
+        <td><span class="dim-name">💪 <span class="en">Physical</span><span class="tr">Fiziksel</span></span></td>
+        <td><span class="score-val">2.80</span></td>
+        <td><span class="score-val">2.16</span></td>
+        <td><span class="change-pill change-down">↓ 0.64</span></td>
+        <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:43%;background:var(--aqua);"></div></div></div></td>
+        <td><span class="score-sm">3.65</span></td>
+      </tr>
+      <tr>
+        <td><span class="dim-name">🧠 <span class="en">Mental</span><span class="tr">Zihinsel</span></span></td>
+        <td><span class="score-val">2.83</span></td>
+        <td><span class="score-val">2.17</span></td>
+        <td><span class="change-pill change-down">↓ 0.66</span></td>
+        <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:43%;background:var(--coral);"></div></div></div></td>
+        <td><span class="score-sm">3.58</span></td>
+      </tr>
+      <tr>
+        <td><span class="dim-name">💛 <span class="en">Emotional</span><span class="tr">Duygusal</span></span></td>
+        <td><span class="score-val">2.85</span></td>
+        <td><span class="score-val">2.06</span></td>
+        <td><span class="change-pill change-down">↓ 0.79</span></td>
+        <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:41%;background:#c8b800;"></div></div></div></td>
+        <td><span class="score-sm">3.56</span></td>
+      </tr>
+      <tr>
+        <td><span class="dim-name">🌙 <span class="en">Recovery</span><span class="tr">Toparlanma</span></span></td>
+        <td><span class="score-val">2.84</span></td>
+        <td><span class="score-val">2.19</span></td>
+        <td><span class="change-pill change-down">↓ 0.65</span></td>
+        <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:44%;background:var(--green);"></div></div></div></td>
+        <td><span class="score-sm">3.56</span></td>
+      </tr>
+      <tr>
+        <td><span class="dim-name">🏠 <span class="en">Work Env.</span><span class="tr">Çalışma Ort.</span></span></td>
+        <td><span class="score-val">3.15</span></td>
+        <td><span class="score-val">2.30</span></td>
+        <td><span class="change-pill change-down">↓ 0.85</span></td>
+        <td><div class="mini-bar-wrap"><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:46%;background:var(--purple);"></div></div></div></td>
+        <td><span class="score-sm">3.89</span></td>
+      </tr>
+    </table>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--muted);line-height:1.6;">
+      <span class="en">📌 March reference scores reflect overall averages when FOH represented 71.5% of responses. The month-on-month decline in overall scores is significantly influenced by the growth in BOH participation and the distinct BOH experience this month. See FOH and BOH breakdowns below for the full picture.</span>
+      <span class="tr">📌 Mart referans puanları, FOH'un yanıtların %71.5'ini oluşturduğu dönemdeki genel ortalamaları yansıtıyor. Genel puanlardaki aylık düşüş, BOH katılımındaki artıştan ve bu aydaki belirgin BOH deneyiminden önemli ölçüde etkileniyor. Tam resim için aşağıdaki FOH ve BOH dökümanlara bakınız.</span>
+    </div>
+  </div>
+
+  <!-- WEEKLY TREND -->
+  <div class="card full">
+    <div class="card-title">
+      <span class="en">Week-by-Week Trends — All Staff (Apr 30 – May 30, 2026)</span>
+      <span class="tr">Haftadan Haftaya Trendler — Tüm Personel (30 Nis – 30 May 2026)</span>
+    </div>
+    <canvas id="weeklyChart"></canvas>
+    <div class="week-boxes">
+      <div class="week-box wk-good">
+        <div class="wk-label"><span class="en">Wk 1 · Apr 30–May 2 (n=9)</span><span class="tr">H1 · 30 Nis–2 May (n=9)</span></div>
+        <span class="en">Solid opening. Scores around 2.8–3.1. Small sample — directional only.</span>
+        <span class="tr">Sağlam başlangıç. Puanlar ~2.8–3.1. Küçük örneklem — yalnızca yönlendirici.</span>
+      </div>
+      <div class="week-box wk-good">
+        <div class="wk-label"><span class="en">Wk 2 · May 5–9 (n=27) ✨</span><span class="tr">H2 · 5–9 May (n=27) ✨</span></div>
+        <span class="en">Strongest week of the period. FOH at its best all programme. The wellness moment visit on Friday May 8 is reflected in this week's readings.</span>
+        <span class="tr">Dönemin en güçlü haftası. FOH tüm program boyunca en iyi halinde. Cuma 8 Mayıs'taki wellness buluşması bu haftanın sonuçlarına yansıdı.</span>
+      </div>
+      <div class="week-box wk-mild">
+        <div class="wk-label"><span class="en">Wk 3 · May 12–16 (n=28)</span><span class="tr">H3 · 12–16 May (n=28)</span></div>
+        <span class="en">Moderate dip. FOH remains stable. BOH softens to 2.1. Emotional dimension shows most strain.</span>
+        <span class="tr">Orta düzey düşüş. FOH istikrarlı kalıyor. BOH 2.1'e yumuşadı. Duygusal boyut en fazla baskıyı gösteriyor.</span>
+      </div>
+      <div class="week-box wk-crit">
+        <div class="wk-label"><span class="en">Wk 4 · May 19–23 (n=86) ⚠️</span><span class="tr">H4 · 19–23 May (n=86) ⚠️</span></div>
+        <span class="en">Most significant week of the period. 78 of 86 responses are BOH, averaging 1.2 across all dimensions. FOH simultaneously records its highest Work Environment score (4.00). Management discussion required.</span>
+        <span class="tr">Dönemin en önemli haftası. 86 yanıtın 78'i BOH'tan, tüm boyutlarda 1.2 ortalamayla. FOH eş zamanlı olarak en yüksek Çalışma Ortamı puanını (4.00) kaydetti. Yönetim tartışması gerekli.</span>
+      </div>
+      <div class="week-box wk-rebo">
+        <div class="wk-label"><span class="en">Wk 5 · May 26–30 (n=25) ↑</span><span class="tr">H5 · 26–30 May (n=25) ↑</span></div>
+        <span class="en">Encouraging recovery across all dimensions. BOH edges up to 2.5. Work environment and recovery show strongest rebound.</span>
+        <span class="tr">Tüm boyutlarda umut verici toparlanma. BOH 2.5'e yükseldi. Çalışma ortamı ve toparlanma en güçlü toparlanmayı gösteriyor.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELLNESS MOMENT -->
+  <div class="card full" style="background:linear-gradient(135deg,rgba(0,174,188,.06),rgba(255,255,255,1));border:1.5px solid rgba(0,174,188,.2);">
+    <div class="card-title green">
+      <span class="en">Programme Impact — The Wellness Moment Effect</span>
+      <span class="tr">Program Etkisi — Wellness Buluşmasının Yansıması</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;">
+      <div>
+        <p style="font-size:13.5px;line-height:1.75;margin-bottom:12px;">
+          <span class="en">On <strong>Friday May 8</strong> — the team's historically hardest day of the week — BRW conducted an in-person wellness session with the Neolokal team: tennis ball body massage, breathwork, and a short outdoor meditation together. The week of May 5–9 immediately following this visit shows <strong>FOH at its strongest readings since the programme began</strong> — across every single dimension.</span>
+          <span class="tr"><strong>Cuma 8 Mayıs</strong>'ta — ekibin tarihsel olarak haftanın en zor gününde — BRW, Neolokal ekibiyle yüz yüze bir wellness seansı gerçekleştirdi: tenis topu beden masajı, nefes çalışması ve kısa bir açık hava meditasyonu. Bu ziyaretin hemen ardından gelen 5–9 Mayıs haftası, <strong>FOH'un program başlangıcından bu yana en güçlü değerlerini</strong> — her boyutta — kaydettiğini gösteriyor.</span>
+        </p>
+        <p style="font-size:12.5px;line-height:1.7;color:var(--charcoal);opacity:.85;">
+          <span class="en">This is an encouraging and direct signal: <strong>leadership presence and programme integration make a measurable difference.</strong> When leadership shows up — in person, on the hardest day — the team responds. This finding should be carried into how leadership plans its involvement in the coming months.</span>
+          <span class="tr">Bu, cesaret verici ve doğrudan bir sinyaldir: <strong>liderlik varlığı ve program entegrasyonu ölçülebilir bir fark yaratıyor.</strong> Liderlik göründüğünde — yüz yüze, en zor günde — ekip buna karşılık veriyor. Bu bulgu, liderliğin önümüzdeki aylardaki katılımını planlarken göz önünde bulundurulmalıdır.</span>
+        </p>
+      </div>
+      <div>
+        <canvas id="wellnessChart" style="max-height:180px;"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECK-IN TIME -->
+  <div class="card left">
+    <div class="card-title yellow">
+      <span class="en">Check-In Times of Day — FOH vs. BOH</span>
+      <span class="tr">Giriş Zamanları — FOH ve BOH</span>
+    </div>
+    <canvas id="timeChart" class="chart-sm"></canvas>
+    <div style="margin-top:12px;font-size:12.5px;line-height:1.65;">
+      <span class="en">BOH continues its two-cluster pattern: <strong>prep kitchen team at 8am</strong> and <strong>evening kitchen team at 8pm</strong>. FOH responses are spread across midday and early afternoon. Each check-in is treated equally regardless of time submitted.</span>
+      <span class="tr">BOH iki küme örüntüsünü sürdürüyor: <strong>hazırlık mutfağı ekibi 08:00'de</strong> ve <strong>akşam mutfağı ekibi 20:00'de</strong>. FOH yanıtları öğlen ve erken öğleden sonraya yayılıyor. Her giriş, gönderilme saatinden bağımsız olarak eşit değerde kabul edilmektedir.</span>
+    </div>
+  </div>
+
+  <!-- DAY OF WEEK -->
+  <div class="card right">
+    <div class="card-title yellow">
+      <span class="en">Scores by Day of Week</span>
+      <span class="tr">Haftanın Gününe Göre Puanlar</span>
+    </div>
+    <canvas id="dowChart" class="chart-md"></canvas>
+    <div style="margin-top:12px;font-size:12.5px;line-height:1.65;">
+      <span class="en">📌 <strong>Wednesday (1.67) and Thursday (1.93) are by far the lowest days</strong> — driven almost entirely by BOH, which averages 1.22 on Wednesdays and 1.27 on Thursdays. FOH scores on these same days are moderate to strong (3.08 and 3.79 respectively). <strong>Tuesday remains the strongest overall day.</strong></span>
+      <span class="tr">📌 <strong>Çarşamba (1.67) ve Perşembe (1.93) açık ara en düşük günler</strong> — neredeyse tamamen BOH tarafından yönlendiriliyor; BOH Çarşambaları 1.22, Perşembeleri 1.27 ortalamasıyla. FOH bu günlerde orta ile güçlü arasında seyrediyor (sırasıyla 3.08 ve 3.79). <strong>Salı genel olarak en güçlü gün olmaya devam ediyor.</strong></span>
+    </div>
+  </div>
+
+  <!-- FOH vs BOH -->
+  <div class="card full">
+    <div class="card-title purple">
+      <span class="en">FOH vs. BOH — One Team, Two Different Experiences This Month</span>
+      <span class="tr">FOH ve BOH — Bir Ekip, Bu Ay İki Farklı Deneyim</span>
+    </div>
+    <canvas id="bohChart"></canvas>
+    <div class="alert-aqua">
+      💙
+      <div>
+        <strong><span class="en">FOH and BOH are not two separate teams — they are one restaurant that relies on each other completely.</span><span class="tr">FOH ve BOH iki ayrı ekip değil — birbirine tamamen bağımlı tek bir restoran.</span></strong>
+        <span class="en"> This month FOH is in its strongest position since the programme began, while BOH is going through its most challenging period. A stronger FOH is not a separate story — it is an opportunity. The energy and morale of one part of the team can actively support the other. Today FOH is stronger. In another month, that may shift. Building a culture where the team lifts each other — in both directions — is one of the most valuable things leadership can cultivate right now.</span>
+        <span class="tr"> Bu ay FOH, program başlangıcından bu yana en güçlü konumunda; BOH ise en zorlu döneminden geçiyor. Daha güçlü bir FOH ayrı bir hikaye değil — bir fırsat. Ekibin bir bölümünün enerjisi ve morali diğerini aktif olarak destekleyebilir. Bugün FOH daha güçlü. Bir sonraki ay bu değişebilir. Ekibin birbirini — her iki yönde de — desteklediği bir kültür oluşturmak, liderliğin şu an geliştirebileceği en değerli şeylerden biri.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOH WEEKLY -->
+  <div class="card full">
+    <div class="card-title">
+      <span class="en">FOH Week-by-Week Detail — All Dimensions (n=63)</span>
+      <span class="tr">FOH Haftalık Detay — Tüm Boyutlar (n=63)</span>
+    </div>
+    <canvas id="fohChart"></canvas>
+    <div class="alert-green" style="margin-top:14px;">
+      ✅
+      <div>
+        <strong><span class="en">FOH Work Environment reached 4.00 in Week 4 (May 19–23) — the highest single dimension reading in the entire Neolokal dataset.</span><span class="tr">FOH Çalışma Ortamı 4. Haftada (19–23 Mayıs) 4.00'a ulaştı — tüm Neolokal veri setindeki en yüksek tek boyut okuması.</span></strong>
+        <span class="en"> Even as BOH experienced its most difficult week, FOH was simultaneously at its most positive. This contrast is important context for leadership when discussing the Week 4 situation.</span>
+        <span class="tr"> BOH en zor haftasını yaşarken, FOH eş zamanlı olarak en olumlu halindeydi. Bu kontrast, liderliğin 4. Hafta durumunu tartışırken önemli bir bağlam sunuyor.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOH WEEKLY -->
+  <div class="card full">
+    <div class="card-title coral">
+      <span class="en">BOH Week-by-Week Detail — All Dimensions (Weeks 1, 3, 4, 5 — n=110)</span>
+      <span class="tr">BOH Haftalık Detay — Tüm Boyutlar (1., 3., 4., 5. Haftalar — n=110)</span>
+    </div>
+    <canvas id="bohWeeklyChart"></canvas>
+    <div class="alert-gap" style="margin-top:14px;">
+      ⚠️
+      <div>
+        <strong><span class="en">Week 2 BOH data (n=2) excluded from chart.</span><span class="tr">2. Hafta BOH verisi (n=2) grafikten çıkarıldı.</span></strong>
+        <span class="en"> Only 2 BOH responses recorded in the week of May 5–9. This sample is too small to be statistically meaningful and has been excluded to avoid distortion.</span>
+        <span class="tr"> 5–9 Mayıs haftasında yalnızca 2 BOH yanıtı kaydedildi. Bu örneklem istatistiksel olarak anlamlı olmak için çok küçük ve çarpıtmayı önlemek amacıyla grafikten çıkarıldı.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOW PROFESSIONAL FLAGS -->
+  <div class="card full">
+    <div class="card-title red">
+      <span class="en">Weekly Low Score Flags — Professional Reasons · FOH Focus (Score 1 or 2, Reason = Professional)</span>
+      <span class="tr">Haftalık Düşük Puan İşaretleri — Mesleki Nedenler · FOH Odaklı (Puan 1 veya 2, Neden = Mesleki)</span>
+    </div>
+    <table class="low-prof-table">
+      <tr>
+        <th><span class="en">Week</span><span class="tr">Hafta</span></th>
+        <th><span class="en">Responses</span><span class="tr">Yanıtlar</span></th>
+        <th><span class="en">All staff flags</span><span class="tr">Tüm personel işaretleri</span></th>
+        <th><span class="en">FOH flags</span><span class="tr">FOH işaretleri</span></th>
+        <th><span class="en">Flags per response</span><span class="tr">Yanıt başına işaret</span></th>
+      </tr>
+      <tr>
+        <td><span class="en">Wk 1 · Apr 30–May 2</span><span class="tr">H1 · 30 Nis–2 May</span></td>
+        <td>9</td>
+        <td>4</td>
+        <td>4</td>
+        <td>0.44</td>
+      </tr>
+      <tr>
+        <td><span class="en">Wk 2 · May 5–9 ✨</span><span class="tr">H2 · 5–9 May ✨</span></td>
+        <td>27</td>
+        <td class="flag-high">24</td>
+        <td class="flag-high">24</td>
+        <td class="flag-high">0.89</td>
+      </tr>
+      <tr>
+        <td><span class="en">Wk 3 · May 12–16</span><span class="tr">H3 · 12–16 May</span></td>
+        <td>28</td>
+        <td class="flag-low">4</td>
+        <td class="flag-low">4</td>
+        <td class="flag-low">0.14</td>
+      </tr>
+      <tr>
+        <td><span class="en">Wk 4 · May 19–23 ⚠️</span><span class="tr">H4 · 19–23 May ⚠️</span></td>
+        <td>86</td>
+        <td class="flag-zero">0</td>
+        <td class="flag-zero">0</td>
+        <td class="flag-zero">0.00</td>
+      </tr>
+      <tr>
+        <td><span class="en">Wk 5 · May 26–30</span><span class="tr">H5 · 26–30 May</span></td>
+        <td>25</td>
+        <td>12</td>
+        <td>2</td>
+        <td>0.48</td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6;">
+      <span class="en">📌 Week 4 shows zero professional flags despite being the largest response week and recording the lowest scores. This is because Week 4 is dominated by BOH responses, and BOH staff almost entirely did not give reasons for their low scores. The professional flags in this table reflect FOH attribution only. Week 2's high flag count (0.89 per response) reflects FOH professional strain in the days immediately following the wellness moment visit — worth discussing with FOH leadership.</span>
+      <span class="tr">📌 4. Hafta, en fazla yanıtın alındığı ve en düşük puanların kaydedildiği hafta olmasına rağmen sıfır mesleki işaret gösteriyor. Bunun nedeni, 4. Haftanın BOH yanıtlarıyla domine edilmesi ve BOH personelinin neredeyse hiç neden belirtmemesidir. Bu tablodaki mesleki işaretler yalnızca FOH atıfını yansıtıyor. 2. Haftanın yüksek işaret sayısı (yanıt başına 0.89), wellness buluşmasının hemen ardından FOH'taki mesleki baskıyı yansıtıyor — FOH liderliğiyle tartışılmaya değer.</span>
+    </div>
+  </div>
+
+  <!-- REASONS -->
+  <div class="card full">
+    <div class="card-title purple">
+      <span class="en">Why Are FOH Scores Low? — Reason Attribution (FOH only · BOH reasons not analysed this month)</span>
+      <span class="tr">FOH Puanları Neden Düşük? — Neden Dağılımı (Yalnızca FOH · BOH nedenleri bu ay analiz edilmedi)</span>
+    </div>
+    <canvas id="reasonsChart" style="max-height:200px;"></canvas>
+    <div style="margin-top:12px;font-size:12.5px;line-height:1.65;">
+      <span class="en">FOH physical and mental low scores are <strong>67–82% professional in origin</strong>. Emotional and recovery lows show a more personal split this month — 41% and 45% professional respectively — suggesting some personal factors are contributing alongside work pressures. Work environment lows remain 71% professional.</span>
+      <span class="tr">FOH fiziksel ve zihinsel düşük puanları <strong>%67–82 oranında mesleki kökenlidir</strong>. Duygusal ve toparlanma düşükleri bu ay daha kişisel bir dağılım gösteriyor — sırasıyla %41 ve %45 mesleki — iş baskılarının yanı sıra kişisel faktörlerin de katkıda bulunduğuna işaret ediyor. Çalışma ortamı düşükleri %71 mesleki olmaya devam ediyor.</span>
+    </div>
+  </div>
+
+  <!-- MANAGEMENT QUESTIONS -->
+  <div class="card full" style="border:2px solid rgba(0,174,188,.2);background:linear-gradient(135deg,rgba(0,174,188,.03),rgba(255,255,255,1));">
+    <div class="card-title" style="font-size:11.5px;">
+      <span class="en">Questions for Management to Discuss with Ownership</span>
+      <span class="tr">Yönetimin Sahiplerle Tartışacağı Sorular</span>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+      <span class="en">The following questions are drawn directly from the data patterns observed at Neolokal this month. They are offered as a starting point for an honest operational conversation — not as conclusions. The BRW team is available to facilitate this discussion.</span>
+      <span class="tr">Aşağıdaki sorular bu ay Neolokal'da gözlemlenen veri örüntülerinden doğrudan türetilmiştir. Sonuçlar olarak değil, dürüst bir operasyonel konuşma için başlangıç noktası olarak sunulmaktadır. BRW ekibi bu tartışmayı kolaylaştırmak için hazırdır.</span>
+    </p>
+    <div class="q-grid">
+      <div class="q-item">
+        <div class="q-num">01</div>
+        <div>
+          <strong><span class="en">The week of May 19–23 recorded the largest number of check-ins (86) and the lowest scores of the entire period — driven overwhelmingly by BOH responses averaging 1.2 across all five dimensions. What was happening operationally in the kitchen during this specific week?</span><span class="tr">19–23 Mayıs haftası en fazla girişi (86) ve dönemin en düşük puanlarını kaydetti — tüm beş boyutta 1.2 ortalamayla ağırlıklı olarak BOH yanıtlarından kaynaklandı. Bu belirli haftada mutfakta operasyonel olarak neler yaşanıyordu?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">e.g. staffing changes, pressure events, external factors, or shifts in kitchen leadership or dynamics.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">örn. personel değişiklikleri, baskı yaratan olaylar, dış etkenler veya mutfak liderliğindeki ya da dinamiklerindeki değişimler.</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">02</div>
+        <div>
+          <strong><span class="en">FOH and BOH are one team that relies on each other completely. FOH is in its strongest position since the programme began. How can leadership create intentional moments where FOH energy and morale actively supports the BOH team right now?</span><span class="tr">FOH ve BOH, birbirine tamamen bağımlı tek bir ekiptir. FOH, program başlangıcından bu yana en güçlü konumunda. Liderlik, FOH'un enerjisi ve moralinin şu an BOH ekibini aktif olarak desteklediği kasıtlı anlar nasıl yaratabilir?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">Consider shared team moments, cross-team acknowledgement, or small rituals that bridge the kitchen and the floor.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">Ortak ekip anları, çapraz ekip takdiri veya mutfak ile salonu birbirine bağlayan küçük ritüeller düşünülebilir.</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">03</div>
+        <div>
+          <strong><span class="en">Following the in-person wellness visit on Friday May 8, FOH recorded its strongest readings of the entire programme. How can leadership build on this and increase their visible involvement in the programme going forward?</span><span class="tr">Cuma 8 Mayıs'taki yüz yüze wellness ziyaretinin ardından FOH, tüm programın en güçlü değerlerini kaydetti. Liderlik bunu nasıl ileri taşıyabilir ve programa görünür katılımını artırabilir?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">The data shows leadership presence makes a measurable difference. Regular, visible engagement — not just programme administration — is what moves scores.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">Veriler, liderlik varlığının ölçülebilir bir fark yarattığını gösteriyor. Puanları hareket ettiren, program yönetiminden değil; düzenli, görünür katılımdan geliyor.</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">04</div>
+        <div>
+          <strong><span class="en">FOH participation has declined every single month — from 123 in March to 82 in April to 63 in May. Is there a specific barrier to FOH engagement that leadership can identify and address?</span><span class="tr">FOH katılımı her ay düştü — Mart'ta 123'ten Nisan'da 82'ye, Mayıs'ta 63'e. Liderliğin belirleyip ele alabileceği FOH katılımının önünde belirli bir engel var mı?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">Is the check-in habit being actively modelled and reinforced by FOH team leads? Has the routine changed?</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">Giriş alışkanlığı FOH ekip liderleri tarafından aktif olarak modelleniyor ve pekiştiriliyor mu? Rutin değişti mi?</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">05</div>
+        <div>
+          <strong><span class="en">Wednesday and Thursday are the lowest-scoring days of the week — driven by BOH, which averages 1.22 and 1.27 on those days respectively. Is there something specific about mid-week kitchen operations that leadership can identify?</span><span class="tr">Çarşamba ve Perşembe, haftanın en düşük puanlı günleri — BOH bu günlerde sırasıyla 1.22 ve 1.27 ortalamayla bunu yönlendiriyor. Liderliğin belirleyebileceği haftanın ortasındaki mutfak operasyonlarına özgü bir şey var mı?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">e.g. delivery schedules, prep pressure, staffing levels, or shift structure on these specific days.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">örn. teslimat programları, hazırlık baskısı, personel seviyeleri veya bu belirli günlerdeki vardiya yapısı.</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">06</div>
+        <div>
+          <strong><span class="en">67–82% of FOH low scores on physical and mental dimensions are attributed to professional causes. Even as FOH scores improve overall, the work environment remains the primary driver of strain when scores dip. What specific FOH operational factors does leadership believe are contributing?</span><span class="tr">FOH fiziksel ve zihinsel boyutlardaki düşük puanların %67–82'si mesleki nedenlere atfediliyor. FOH puanları genel olarak iyileşse de, puanlar düştüğünde çalışma ortamı birincil stres kaynağı olmaya devam ediyor. Liderlik, hangi FOH operasyonel faktörlerinin katkıda bulunduğuna inanıyor?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">This is an area where leadership has direct influence. BRW can offer targeted strategies once specific drivers are identified.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">Bu, liderliğin doğrudan etkisi olduğu bir alan. Spesifik etkenler belirlendikten sonra BRW hedefli stratejiler sunabilir.</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">07</div>
+        <div>
+          <strong><span class="en">BOH emotional and recovery low scores show a more personal split this month alongside professional causes. Without drawing conclusions, is leadership aware of any external pressures or personal circumstances affecting the kitchen team right now?</span><span class="tr">BOH duygusal ve toparlanma düşük puanları bu ay mesleki nedenlerle birlikte daha kişisel bir dağılım gösteriyor. Sonuç çıkarmadan, liderlik şu an mutfak ekibini etkileyen dış baskılar veya kişisel koşulların farkında mı?</span></strong>
+          <br><span class="en" style="color:var(--muted);font-size:12px;">This question is offered with care — not to pry, but to ensure support can be directed appropriately if needed.</span>
+          <span class="tr" style="color:var(--muted);font-size:12px;">Bu soru özenle sunuluyor — araştırmak için değil, gerektiğinde desteğin uygun biçimde yönlendirilebilmesi için.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  The BreakRoom Wellness &nbsp;·&nbsp; <span class="en">Neolokal · Management Report · May 2026 · Confidential — Not for Distribution</span><span class="tr">Neolokal · Yönetim Raporu · Mayıs 2026 · Gizli — Dağıtım İçin Değil</span>
+</div>
+
+<script>
+function setLang(l){document.body.className=l==='tr'?'lang-tr':'';document.querySelectorAll('.lang-bar button').forEach((b,i)=>b.classList.toggle('active',(l==='en'&&i===0)||(l==='tr'&&i===1)));}
+Chart.defaults.font.family="'DM Sans',sans-serif";Chart.defaults.color='#434443';
+const gc='rgba(0,0,0,0.04)',AQ='#00AEBC',CO='#FF7376',GR='#52B788',PU='#9575CD',YE='#c8b800';
+
+// WEEKLY ALL STAFF
+new Chart(document.getElementById('weeklyChart'),{type:'line',data:{
+  labels:['Wk 1  Apr 30–May 2 (n=9)','Wk 2  May 5–9 (n=27)','Wk 3  May 12–16 (n=28)','Wk 4  May 19–23 (n=86)','Wk 5  May 26–30 (n=25)'],
+  datasets:[
+    {label:'Physical / Fiziksel',data:[3.00,3.11,2.82,1.40,2.72],borderColor:AQ,backgroundColor:'rgba(0,174,188,.07)',pointRadius:7,pointBackgroundColor:AQ,tension:.35,borderWidth:2.5},
+    {label:'Mental / Zihinsel',data:[2.78,3.04,2.89,1.41,2.84],borderColor:CO,backgroundColor:'rgba(255,115,118,.06)',pointRadius:7,pointBackgroundColor:CO,tension:.35,borderWidth:2.5},
+    {label:'Emotional / Duygusal',data:[2.78,2.89,2.46,1.37,2.84],borderColor:YE,backgroundColor:'rgba(200,184,0,.05)',pointRadius:7,pointBackgroundColor:YE,tension:.35,borderWidth:2.5},
+    {label:'Recovery / Toparlanma',data:[3.11,3.07,2.68,1.43,3.00],borderColor:GR,backgroundColor:'rgba(82,183,136,.07)',pointRadius:8,pointBackgroundColor:GR,tension:.35,borderWidth:3},
+    {label:'Work Env. / Çalışma Ort.',data:[2.89,3.33,3.00,1.47,3.08],borderColor:PU,backgroundColor:'rgba(149,117,205,.05)',pointRadius:7,pointBackgroundColor:PU,tension:.35,borderWidth:2.5},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11},padding:14}}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// WELLNESS MOMENT — FOH scores weeks 1-5
+new Chart(document.getElementById('wellnessChart'),{type:'line',data:{
+  labels:['Wk1','Wk2 ✨May 8','Wk3','Wk4','Wk5'],
+  datasets:[
+    {label:'FOH Physical',data:[3.60,3.28,3.47,3.38,3.00],borderColor:AQ,pointRadius:6,pointBackgroundColor:AQ,tension:.35,borderWidth:2},
+    {label:'FOH Work Env.',data:[3.40,3.52,3.67,4.00,3.80],borderColor:PU,pointRadius:6,pointBackgroundColor:PU,tension:.35,borderWidth:2},
+    {label:'FOH Recovery',data:[3.60,3.24,3.13,3.50,3.60],borderColor:GR,pointRadius:6,pointBackgroundColor:GR,tension:.35,borderWidth:2},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10},padding:10}},annotation:{}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// TIME OF DAY
+new Chart(document.getElementById('timeChart'),{type:'bar',data:{
+  labels:['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm'],
+  datasets:[
+    {label:'BOH',data:[1,1,44,8,2,0,0,17,0,0,2,0,0,0,35,2],backgroundColor:'rgba(82,183,136,.7)',borderRadius:3},
+    {label:'FOH',data:[0,0,1,2,0,4,4,13,8,6,4,2,2,2,7,8],backgroundColor:'rgba(0,174,188,.6)',borderRadius:3},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11}}}},scales:{y:{stacked:true,title:{display:true,text:'Responses',font:{size:10}},grid:{color:gc}},x:{stacked:true,grid:{display:false},ticks:{font:{size:9}}}}}
+});
+
+// DAY OF WEEK — overall
+new Chart(document.getElementById('dowChart'),{type:'bar',data:{
+  labels:['Tue','Wed','Thu','Fri','Sat'],
+  datasets:[
+    {label:'Physical',data:[3.44,1.67,1.93,2.19,2.90],backgroundColor:'rgba(0,174,188,.7)',borderRadius:3},
+    {label:'Mental',data:[3.44,1.69,1.87,2.25,3.00],backgroundColor:'rgba(255,115,118,.7)',borderRadius:3},
+    {label:'Recovery',data:[3.62,1.59,1.93,2.28,3.10],backgroundColor:'rgba(82,183,136,.7)',borderRadius:3},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11},padding:10}}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// FOH vs BOH overall
+new Chart(document.getElementById('bohChart'),{type:'bar',data:{
+  labels:['Physical / Fiziksel','Mental / Zihinsel','Emotional / Duygusal','Recovery / Toparlanma','Work Env. / Çalışma Ort.'],
+  datasets:[
+    {label:'FOH (n=63)',data:[3.32,3.37,3.08,3.33,3.65],backgroundColor:'rgba(0,174,188,.7)',borderRadius:4},
+    {label:'BOH (n=112)',data:[1.51,1.50,1.49,1.55,1.54],backgroundColor:'rgba(255,115,118,.65)',borderRadius:4},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11}}}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// FOH WEEKLY
+new Chart(document.getElementById('fohChart'),{type:'bar',data:{
+  labels:['Physical / Fiziksel','Mental / Zihinsel','Emotional / Duygusal','Recovery / Toparlanma','Work Env. / Çalışma Ort.'],
+  datasets:[
+    {label:'Wk 1  Apr 30–May 2 (n=5)',data:[3.60,3.40,3.40,3.60,3.40],backgroundColor:'rgba(0,174,188,.75)',borderRadius:4},
+    {label:'Wk 2  May 5–9 ✨ (n=25)',data:[3.28,3.20,3.04,3.24,3.52],backgroundColor:'rgba(82,183,136,.75)',borderRadius:4},
+    {label:'Wk 3  May 12–16 (n=15)',data:[3.47,3.47,2.73,3.13,3.67],backgroundColor:'rgba(149,117,205,.65)',borderRadius:4},
+    {label:'Wk 4  May 19–23 (n=8)',data:[3.38,3.62,3.25,3.50,4.00],backgroundColor:'rgba(200,184,0,.8)',borderRadius:4},
+    {label:'Wk 5  May 26–30 (n=10)',data:[3.00,3.40,3.40,3.60,3.80],backgroundColor:'rgba(0,174,188,.45)',borderRadius:4},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11},padding:12}}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// BOH WEEKLY (weeks 1,3,4,5)
+new Chart(document.getElementById('bohWeeklyChart'),{type:'bar',data:{
+  labels:['Physical / Fiziksel','Mental / Zihinsel','Emotional / Duygusal','Recovery / Toparlanma','Work Env. / Çalışma Ort.'],
+  datasets:[
+    {label:'Wk 1  Apr 30–May 2 (n=4)',data:[2.25,2.00,2.00,2.50,2.25],backgroundColor:'rgba(0,174,188,.75)',borderRadius:4},
+    {label:'Wk 3  May 12–16 (n=13)',data:[2.08,2.23,2.15,2.15,2.23],backgroundColor:'rgba(149,117,205,.65)',borderRadius:4},
+    {label:'Wk 4  May 19–23 (n=78)',data:[1.19,1.18,1.18,1.22,1.21],backgroundColor:'rgba(255,59,48,.85)',borderRadius:4},
+    {label:'Wk 5  May 26–30 (n=15)',data:[2.53,2.47,2.47,2.60,2.60],backgroundColor:'rgba(82,183,136,.65)',borderRadius:4},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11},padding:12}}},scales:{y:{min:1,max:5,ticks:{stepSize:1},grid:{color:gc}},x:{grid:{display:false}}}}
+});
+
+// REASONS FOH
+new Chart(document.getElementById('reasonsChart'),{type:'bar',data:{
+  labels:['Physical','Mental','Emotional','Recovery','Work Env.'],
+  datasets:[
+    {label:'Professional / Mesleki',data:[67,82,41,45,71],backgroundColor:'rgba(255,115,118,.75)',borderRadius:4},
+    {label:'Personal / Kişisel',data:[8,9,29,36,14],backgroundColor:'rgba(0,174,188,.65)',borderRadius:4},
+    {label:'No reason given',data:[25,9,29,18,14],backgroundColor:'rgba(235,235,235,.9)',borderRadius:4},
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:11,font:{size:11},padding:10}},tooltip:{callbacks:{label:(i)=>`${i.dataset.label}: ${i.raw}%`}}},scales:{y:{max:100,ticks:{callback:(v)=>v+'%'},stacked:true,grid:{color:gc}},x:{stacked:true,grid:{display:false}}}}
+});
+</script>
+</body>
+</html>
